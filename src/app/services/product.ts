@@ -1,76 +1,77 @@
 import { Injectable } from '@angular/core';
 
-export interface Product {
+export interface Produto {
   id: number;
-  name: string;
-  price: number;
-  image?: string;
-  description?: string;
-  stock: number;
+  nome: string;
+  preco: number;
+  imagem?: string;
+  descricao?: string;
+  estoque: number;
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductService {
 
-  private products: Product[] = [
+export class ProdutoService {
+
+  private produtos: Produto[] = [
     {
       id: 1,
-      name: 'ddcybcycbyeruvbyrv',
-      price: 49.90,
-      image: 'https://via.placeholder.com/150',
-      description: 'Descrição teste.',
-      stock: 10
+      nome: 'ddcybcycbyeruvbyrv',
+      preco: 49.90,
+      imagem: 'https://via.placeholder.com/150',
+      descricao: 'Descrição teste.',
+      estoque: 10
     },
     {
       id: 2,
-      name: 'Camiseta',
-      price: 79.90,
-      image: 'https://via.placeholder.com/150',
-      description: 'Camisetaaaaaaaaa.',
-      stock: 5
+      nome: 'Camiseta',
+      preco: 79.90,
+      imagem: 'https://via.placeholder.com/150',
+      descricao: 'Camisetaaaaaaaaa.',
+      estoque: 5
     }
   ];
 
-  getProducts(): Product[] {
-    return this.products; 
+  getProdutos(): Produto[] {
+    return this.produtos; 
   }
 
-  getProductById(id: number): Product | undefined {
-    return this.products.find(p => p.id === id);
+  getProdutoById(id: number): Produto | undefined {
+    return this.produtos.find(p => p.id === id);
   }
 
-  addProduct(product: Partial<Product>) {
-    const newId =
-      this.products.length > 0
-        ? Math.max(...this.products.map(p => p.id)) + 1
+  adicionarProduto(p: Partial<Produto>) {
+    const novoId =
+      this.produtos.length > 0
+        ? Math.max(...this.produtos.map(p => p.id)) + 1
         : 1;
 
-    const normalized: Product = {
-      id: newId,
-      name: product.name ?? 'Novo Produto',
-      price: product.price ?? 0,
-      image: product.image ?? 'https://via.placeholder.com/150',
-      description: product.description ?? '',
-      stock: product.stock ?? 0
+    const novoProduto: Produto = {
+      id: novoId,
+      nome: p.nome ?? 'Novo Produto',
+      preco: p.preco ?? 0,
+      imagem: p.imagem ?? 'https://via.placeholder.com/150',
+      descricao: p.descricao ?? '',
+      estoque: p.estoque ?? 0
     };
 
-    this.products.push(normalized);
+    this.produtos.push(novoProduto);
   }
 
-  updateProduct(updated: Product) {
-    const index = this.products.findIndex(p => p.id === updated.id);
+  atualizarProduto(prodAtualizado: Produto) {
+    const index = this.produtos.findIndex(p => p.id === prodAtualizado.id);
     if (index !== -1) {
-      this.products[index] = {
-        ...this.products[index],
-        ...updated,
-        stock: updated.stock ?? this.products[index].stock ?? 0
+      this.produtos[index] = {
+        ...this.produtos[index],
+        ...prodAtualizado,
+        estoque: prodAtualizado.estoque ?? this.produtos[index].estoque ?? 0
       };
     }
   }
 
-  deleteProduct(id: number) {
-    this.products = this.products.filter(p => p.id !== id);
+  deletarProduto(id: number) {
+    this.produtos = this.produtos.filter(p => p.id !== id);
   }
 }

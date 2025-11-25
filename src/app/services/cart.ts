@@ -1,66 +1,77 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../services/product';
+import { Produto } from '../services/product';
 
-export interface CartItem {
-  product: Product;
-  quantity: number;
+export interface ItemCarrinho {
+  produto: Produto;
+  quantidade: number;
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class CartService {
+export class CarrinhoService {
 
-  private cart: CartItem[] = [];
+  private carrinho: ItemCarrinho[] = [];
 
-  getCart(): CartItem[] {
-    return this.cart;
+  getCarrinho(): ItemCarrinho[] {
+    return this.carrinho;
   }
 
-  addToCart(product: Product) {
-    const item = this.cart.find(i => i.product.id === product.id);
+  adicionarCarrinho(produto: Produto) {
+    const item = this.carrinho.find(i => i.produto.id === produto.id);
 
     if (item) {
-      item.quantity++;
+      item.quantidade++;
     } else {
-      this.cart.push({ product, quantity: 1 });
+      this.carrinho.push({ produto, quantidade: 1 });
     }
   }
 
-  increaseQuantity(productId: number, stock: number) {
-    const item = this.cart.find(i => i.product.id === productId);
-    if (item && item.quantity < stock) {
-      item.quantity++;
+  incrementarQtd(idProd: number, estoque: number) {
+    const item = this.carrinho.find(i => i.produto.id === idProd);
+    if (item && item.quantidade < estoque) {
+      item.quantidade++;
     }
   }
 
-  decreaseQuantity(productId: number) {
-    const item = this.cart.find(i => i.product.id === productId);
+  decrementarQtd(idProd: number) {
+    const item = this.carrinho.find(i => i.produto.id === idProd);
     if (item) {
-      if (item.quantity > 1) {
-        item.quantity--;
+      if (item.quantidade > 1) {
+        item.quantidade--;
       } else {
-        this.removeItem(productId);
+        this.removerItem(idProd);
       }
     }
   }
 
-  removeItem(productId: number) {
-    this.cart = this.cart.filter(i => i.product.id !== productId);
+  removerItem(idProd: number) {
+    this.carrinho = this.carrinho.filter(i => i.produto.id !== idProd);
   }
 
-  clearCart() {
-    this.cart = [];
+  limparCarrinho() {
+    this.carrinho = [];
   }
 
   getTotal(): number {
-    return this.cart.reduce((sum, item) =>
-      sum + (item.product.price * item.quantity), 0);
+  let total = 0;
+
+  for (let item of this.carrinho) {
+    total += item.produto.preco * item.quantidade;
   }
 
-  getTotalItems(): number {
-  return this.cart.reduce((total, item) => total + item.quantity, 0);
-}
+  return total;
+  }
 
+
+  getTotalItems(): number {
+  let total = 0;
+
+  for (let item of this.carrinho) {
+    total += item.quantidade;
+  }
+
+  return total;
+}
 
 }
