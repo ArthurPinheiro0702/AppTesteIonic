@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface User {
   id: string;
@@ -12,49 +11,56 @@ export interface User {
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<User | null>;
-  public currentUser: Observable<User | null>;
 
-  // Usuários de exemplo (em produção, isso viria de uma API)
-  private users = [
-    { id: '1', name: 'Admin', email: 'admin@loja.com', password: 'admin123', role: 'admin' as const },
-    { id: '2', name: 'João Silva', email: 'joao@email.com', password: 'user123', role: 'user' as const }
+  private usuarios = [
+    { id: '1', nome: 'Admin', user: 'admin', senha: 'admin', cargo: 'admin' },
+    { id: '2', nome: 'Cliente', user: 'cliente', senha: 'user', cargo: 'user' }
   ];
 
+  private currentUser: User | null = null;
+
   constructor() {
-    const storedUser = localStorage.getItem('currentUser');
-    this.currentUserSubject = new BehaviorSubject<User | null>(
-      storedUser ? JSON.parse(storedUser) : null
+    const saved = localStorage.getItem('currentUser');
+    if (saved) {
+      this.currentUser = JSON.parse(saved);
+    }
+  }
+
+  login(user: string, senha: string): boolean {
+    const usuario = this.usuarios.find(
+      u => u.user === user && u.senha === senha
     );
-    this.currentUser = this.currentUserSubject.asObservable();
-  }
 
-  public get currentUserValue(): User | null {
-    return this.currentUserSubject.value;
-  }
+    if (usuario) {
+      const cleanUser: User = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      };
 
-  login(email: string, password: string): boolean {
-    const user = this.users.find(u => u.email === email && u.password === password);
-    
-    if (user) {
-      const { password, ...userWithoutPassword } = user;
-      localStorage.setItem('currentUser', JSON.stringify(userWithoutPassword));
-      this.currentUserSubject.next(userWithoutPassword);
+      this.currentUser = cleanUser;
+      localStorage.setItem('currentUser', JSON.stringify(cleanUser));
       return true;
     }
+
     return false;
   }
 
   logout() {
+    this.currentUser = null;
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
   }
 
-  isAdmin(): boolean {
-    return this.currentUserValue?.role === 'admin';
+  getUser(): User | null {
+    return this.currentUser;
   }
 
   isLoggedIn(): boolean {
-    return this.currentUserValue !== null;
+    return this.currentUser !== null;
+  }
+
+  isAdmin(): boolean {
+    return this.currentUser?.role === 'admin';
   }
 }
