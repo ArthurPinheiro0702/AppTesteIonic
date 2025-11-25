@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Loja Online</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToCart()">
+        <ion-icon name="cart" slot="icon-only"></ion-icon>
+        <ion-badge color="danger" *ngIf="cartItemCount > 0">{{ cartItemCount }}</ion-badge>
+      </ion-button>
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="welcome-banner ion-padding">
+    <h2>Bem-vindo, {{ userName }}!</h2>
+    <p>Confira nossos produtos</p>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let product of products">
+        <ion-card>
+          <img [src]="product.image" [alt]="product.name">
+          <ion-card-header>
+            <ion-card-title>{{ product.name }}</ion-card-title>
+            <ion-card-subtitle>{{ product.price | currency:'BRL' }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p>{{ product.description }}</p>
+            <p class="stock-info">
+              <ion-icon name="cube" color="medium"></ion-icon>
+              {{ product.stock }} em estoque
+            </p>
+            
+            <ion-button 
+              expand="block" 
+              (click)="addToCart(product)"
+              [disabled]="product.stock === 0">
+              <ion-icon name="cart" slot="start"></ion-icon>
+              {{ product.stock === 0 ? 'Sem estoque' : 'Adicionar ao carrinho' }}
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="products.length === 0" class="empty-state ion-padding">
+    <ion-icon name="cube-outline" color="medium"></ion-icon>
+    <p>Nenhum produto disponível no momento</p>
+  </div>
+</ion-content>
