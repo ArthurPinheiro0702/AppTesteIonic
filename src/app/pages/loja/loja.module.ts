@@ -4,14 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 
-import { ShopPage } from './shop.page';
+import { LojaPage } from './loja.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ShopPage
+    LojaPage
   ]
 })
-export class ShopPageModule {}
+export class LojaPageModule {}

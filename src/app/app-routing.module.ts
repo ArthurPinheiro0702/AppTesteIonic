@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: 'shop',
     loadComponent: () =>
-      import('./pages/shop/shop.page').then(m => m.ShopPage),
+      import('./pages/loja/loja.page').then(m => m.LojaPage),
     canActivate: [authGuard]
   },
 

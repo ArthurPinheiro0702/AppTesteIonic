@@ -8,9 +8,9 @@ import { CarrinhoService } from '../../services/carrinho.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-shop',
-  templateUrl: './shop.page.html',
-  styleUrls: ['./shop.page.scss'],
+  selector: 'app-loja',
+  templateUrl: './loja.page.html',
+  styleUrls: ['./loja.page.scss'],
   standalone: true,
   imports: [
     IonicModule,
@@ -18,7 +18,7 @@ import { AuthService } from '../../services/auth.service';
     CurrencyPipe
   ]
 })
-export class ShopPage implements OnInit {
+export class LojaPage implements OnInit {
 
   produtos: Produto[] = [];
   carrinhoQtd = 0;
