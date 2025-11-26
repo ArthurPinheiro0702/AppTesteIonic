@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { ProductService } from 'src/app/services/product';  // ajuste se o caminho for diferente
+import { ProdutoService } from 'src/app/services/product'; 
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -24,7 +24,7 @@ export class AdminPage implements OnInit {
 
   constructor(
     private router: Router,
-    private productService: ProductService,
+    private productService: ProdutoService,
     private alertController: AlertController
   ) {}
 
@@ -37,7 +37,7 @@ export class AdminPage implements OnInit {
   }
 
   loadProducts() {
-    this.products = this.productService.getProducts();
+    this.products = this.productService.getProdutos();
   }
 
   logout() {
@@ -62,7 +62,7 @@ export class AdminPage implements OnInit {
         {
           text: 'Excluir',
           handler: () => {
-            this.productService.deleteProduct(id);
+            this.productService.deletarProduto(id);
             this.loadProducts();
           }
         }

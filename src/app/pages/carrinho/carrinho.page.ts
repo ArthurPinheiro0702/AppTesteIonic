@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CartService, CartItem } from '../../services/cart';
+import { CarrinhoService, ItemCarrinho } from '../../services/carrinho';
 import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-cart',
-  templateUrl: './cart.page.html',
-  styleUrls: ['./cart.page.scss'],
+  templateUrl: './carrinho.page.html',
+  styleUrls: ['./carrinho.page.scss'],
   imports: [
     IonicModule,
     CommonModule,
@@ -18,11 +18,11 @@ import { Router } from '@angular/router';
 })
 export class CartPage implements OnInit {
 
-  cartItems: CartItem[] = [];
+  cartItems: ItemCarrinho[] = [];
   total: number = 0;
 
   constructor(
-    private cartService: CartService,
+    private cartService: CarrinhoService,
     private alertController: AlertController,
     private router: Router
   ) {}
@@ -36,22 +36,22 @@ export class CartPage implements OnInit {
   }
 
   loadCart() {
-    this.cartItems = this.cartService.getCart();
+    this.cartItems = this.cartService.getCarrinho();
     this.total = this.cartService.getTotal();
   }
 
   increaseQuantity(id: number, stock: number) {
-    this.cartService.increaseQuantity(id, stock);
+    this.cartService.incrementarQtd(id, stock);
     this.loadCart();
   }
 
   decreaseQuantity(id: number) {
-    this.cartService.decreaseQuantity(id);
+    this.cartService.decrementarQtd(id);
     this.loadCart();
   }
 
   removeItem(id: number) {
-    this.cartService.removeItem(id);
+    this.cartService.removerItem(id);
     this.loadCart();
   }
 
@@ -64,7 +64,7 @@ export class CartPage implements OnInit {
 
     await alert.present();
 
-    this.cartService.clearCart();
+    this.cartService.limparCarrinho();
     this.loadCart();
 
     this.router.navigate(['/shop']);

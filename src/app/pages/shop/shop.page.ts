@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 
-import { Product, ProductService } from '../../services/product';
-import { CartService } from '../../services/cart';
+import { Produto, ProdutoService } from '../../services/product';
+import { CarrinhoService } from '../../services/carrinho';
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -20,13 +20,13 @@ import { AuthService } from '../../services/auth';
 })
 export class ShopPage implements OnInit {
 
-  products: Product[] = [];
+  products: Produto[] = [];
   cartItemCount = 0;
   userName = '';
 
   constructor(
-    private productService: ProductService,
-    private cartService: CartService,
+    private productService: ProdutoService,
+    private cartService: CarrinhoService,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -42,28 +42,28 @@ export class ShopPage implements OnInit {
   }
 
   loadProducts() {
-    this.products = this.productService.getProducts();
+    this.products = this.productService.getProdutos();
   }
 
   loadUserName() {
-    this.userName = this.authService.currentUserValue?.name ?? 'Usuário';
+    this.userName = this.authService.getUser()?.name ?? 'Usuário';
   }
 
   updateCartCount() {
     this.cartItemCount = this.cartService.getTotalItems();
   }
 
-  addToCart(product: Product) {
-    if (product.stock > 0) {
-      this.cartService.addToCart(product);
-      product.stock--;
-      this.productService.updateProduct(product);
+  addToCart(product: Produto) {
+    if (product.estoque > 0) {
+      this.cartService.adicionarCarrinho(product);
+      product.estoque--;
+      this.productService.atualizarProduto(product);
       this.updateCartCount();
     }
   }
 
   goToCart() {
-    this.router.navigate(['/cart']);
+    this.router.navigate(['/carrinho']); // Ajuste conforme o path real
   }
 
   logout() {

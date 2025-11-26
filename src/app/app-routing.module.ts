@@ -9,33 +9,45 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
+
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
+    loadChildren: () =>
+      import('./pages/login/login.module').then(m => m.LoginPageModule)
   },
+
   {
     path: 'shop',
-    loadChildren: () => import('./pages/shop/shop.module').then(m => m.ShopPageModule),
+    loadComponent: () =>
+      import('./pages/shop/shop.page').then(m => m.ShopPage),
     canActivate: [authGuard]
   },
+
   {
     path: 'cart',
-    loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartPageModule),
+    loadComponent: () =>
+      import('./pages/carrinho/carrinho.page').then(m => m.CartPage),
     canActivate: [authGuard]
   },
+
   {
     path: 'admin',
-    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminPageModule),
+    loadComponent: () =>
+      import('./pages/admin/admin.page').then(m => m.AdminPage),
     canActivate: [authGuard, adminGuard]
   },
+
   {
     path: 'admin/product/:id',
-    loadChildren: () => import('./pages/product-form/product-form.module').then(m => m.ProductFormPageModule),
+    loadComponent: () =>
+      import('./pages/produto-form/produto-form.page').then(m => m.ProductFormPage),
     canActivate: [authGuard, adminGuard]
   },
+
   {
     path: 'admin/product',
-    loadChildren: () => import('./pages/product-form/product-form.module').then(m => m.ProductFormPageModule),
+    loadComponent: () =>
+      import('./pages/produto-form/produto-form.page').then(m => m.ProductFormPage),
     canActivate: [authGuard, adminGuard]
   }
 ];

@@ -3,12 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ToastController } from '@ionic/angular';
-import { Product, ProductService } from 'src/app/services/product';
+import { Produto, ProdutoService } from 'src/app/services/product';
 
 @Component({
   selector: 'app-product-form',
-  templateUrl: './product-form.page.html',
-  styleUrls: ['./product-form.page.scss'],
+  templateUrl: './produto-form.page.html',
+  styleUrls: ['./produto-form.page.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -18,13 +18,13 @@ import { Product, ProductService } from 'src/app/services/product';
 })
 export class ProductFormPage {
 
-  product: Product = {
+  product: Produto = {
     id: 0,
-    name: '',
-    description: '',
-    price: 0,
-    stock: 0,
-    image: ''
+    nome: '',
+    descricao: '',
+    preco: 0,
+    estoque: 0,
+    imagem: ''
   };
 
   isEditMode = false;
@@ -32,7 +32,7 @@ export class ProductFormPage {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductService,
+    private productService: ProdutoService,
     private toastController: ToastController
   ) {}
 
@@ -41,7 +41,7 @@ export class ProductFormPage {
 
     if (productId) {
       this.isEditMode = true;
-      const existingProduct = this.productService.getProductById(productId);
+      const existingProduct = this.productService.getProdutoById(productId);
 
       if (existingProduct) {
         this.product = { ...existingProduct };
@@ -54,10 +54,10 @@ export class ProductFormPage {
 
   saveProduct() {
     if (this.isEditMode) {
-      this.productService.updateProduct(this.product);
+      this.productService.atualizarProduto(this.product);
       this.showToast('Produto atualizado com sucesso!', 'success');
     } else {
-      this.productService.addProduct(this.product);
+      this.productService.adicionarProduto(this.product);
       this.showToast('Produto cadastrado com sucesso!', 'success');
     }
 
@@ -66,7 +66,7 @@ export class ProductFormPage {
 
   onImageError() {
     this.showToast('Erro ao carregar imagem. Verifique a URL.', 'warning');
-    this.product.image = '';
+    this.product.imagem = '';
   }
 
   async showToast(message: string, color: string) {

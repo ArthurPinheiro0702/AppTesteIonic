@@ -13,8 +13,8 @@ export interface User {
 export class AuthService {
 
   private usuarios = [
-    { id: '1', nome: 'Admin', user: 'admin', senha: 'admin', cargo: 'admin' },
-    { id: '2', nome: 'Cliente', user: 'cliente', senha: 'user', cargo: 'user' }
+    { id: '1', nome: 'Admin', email: 'admin@loja.com', senha: 'admin123', cargo: 'admin' },
+    { id: '2', nome: 'Cliente', email: 'joao@email.com', senha: 'user123', cargo: 'user' }
   ];
 
   private currentUser: User | null = null;
@@ -26,17 +26,17 @@ export class AuthService {
     }
   }
 
-  login(user: string, senha: string): boolean {
+  login(email: string, senha: string): boolean {
     const usuario = this.usuarios.find(
-      u => u.user === user && u.senha === senha
+      u => u.email === email && u.senha === senha
     );
 
     if (usuario) {
       const cleanUser: User = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role
+        id: usuario.id,
+        name: usuario.nome,
+        email: usuario.email,
+        role: usuario.cargo as 'admin' | 'user'
       };
 
       this.currentUser = cleanUser;
@@ -62,5 +62,9 @@ export class AuthService {
 
   isAdmin(): boolean {
     return this.currentUser?.role === 'admin';
+  }
+
+  get currentUserValue(): User | null {
+    return this.currentUser;
   }
 }

@@ -13,34 +13,34 @@
       <ion-item-sliding *ngFor="let item of cartItems">
         <ion-item>
           <ion-thumbnail slot="start">
-            <img [src]="item.product.image" [alt]="item.product.name">
+            <img [src]="item.produto.imagem" [alt]="item.produto.nome">
           </ion-thumbnail>
           <ion-label>
-            <h2>{{ item.product.name }}</h2>
-            <p>{{ item.product.price | currency:'BRL' }}</p>
-            <p class="stock-available">Disponível: {{ item.product.stock }}</p>
+            <h2>{{ item.produto.nome }}</h2>
+            <p>{{ item.produto.preco | currency:'BRL' }}</p>
+            <p class="stock-available">Disponível: {{ item.produto.estoque }}</p>
           </ion-label>
           <div class="quantity-controls">
             <ion-button 
               fill="clear" 
               size="small"
-              (click)="decreaseQuantity(item.product.id)">
+              (click)="decreaseQuantity(item.produto.id)">
               <ion-icon name="remove" slot="icon-only"></ion-icon>
             </ion-button>
-            <span class="quantity">{{ item.quantity }}</span>
+            <span class="quantity">{{ item.quantidade }}</span>
             <ion-button 
               fill="clear" 
               size="small"
-              (click)="increaseQuantity(item.product.id, item.product.stock)">
+              (click)="increaseQuantity(item.produto.id, item.produto.estoque)">
               <ion-icon name="add" slot="icon-only"></ion-icon>
             </ion-button>
           </div>
           <ion-note slot="end" class="item-total">
-            {{ item.product.price * item.quantity | currency:'BRL' }}
+            {{ item.produto.preco * item.quantidade | currency:'BRL' }}
           </ion-note>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option color="danger" (click)="removeItem(item.product.id)">
+          <ion-item-option color="danger" (click)="removeItem(item.produto.id)">
             <ion-icon name="trash" slot="icon-only"></ion-icon>
           </ion-item-option>
         </ion-item-options>

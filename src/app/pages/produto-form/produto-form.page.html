@@ -15,8 +15,8 @@
           <ion-label position="floating">Nome do Produto *</ion-label>
           <ion-input 
             type="text" 
-            [(ngModel)]="product.name" 
-            name="name" 
+            [(ngModel)]="product.nome" 
+            name="nome" 
             required>
           </ion-input>
         </ion-item>
@@ -24,8 +24,8 @@
         <ion-item>
           <ion-label position="floating">Descrição *</ion-label>
           <ion-textarea 
-            [(ngModel)]="product.description" 
-            name="description" 
+            [(ngModel)]="product.descricao" 
+            name="descricao" 
             rows="3"
             required>
           </ion-textarea>
@@ -35,8 +35,8 @@
           <ion-label position="floating">Preço (R$) *</ion-label>
           <ion-input 
             type="number" 
-            [(ngModel)]="product.price" 
-            name="price" 
+            [(ngModel)]="product.preco" 
+            name="preco" 
             min="0"
             step="0.01"
             required>
@@ -47,8 +47,8 @@
           <ion-label position="floating">Estoque *</ion-label>
           <ion-input 
             type="number" 
-            [(ngModel)]="product.stock" 
-            name="stock" 
+            [(ngModel)]="product.estoque" 
+            name="estoque" 
             min="0"
             required>
           </ion-input>
@@ -58,15 +58,15 @@
           <ion-label position="floating">URL da Imagem *</ion-label>
           <ion-input 
             type="url" 
-            [(ngModel)]="product.image" 
-            name="image" 
+            [(ngModel)]="product.imagem" 
+            name="imagem" 
             required>
           </ion-input>
         </ion-item>
 
-        <div class="image-preview" *ngIf="product.image">
+        <div class="image-preview" *ngIf="product.imagem">
           <p>Preview:</p>
-          <img [src]="product.image" alt="Preview" (error)="onImageError()">
+          <img [src]="product.imagem" alt="Preview" (error)="onImageError()">
         </div>
 
         <div class="button-group">

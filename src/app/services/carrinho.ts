@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Produto } from '../services/product';
+import { Produto } from './product';
 
 export interface ItemCarrinho {
   produto: Produto;
