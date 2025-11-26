@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 
-import { Produto, ProdutoService } from '../../services/product';
-import { CarrinhoService } from '../../services/carrinho';
-import { AuthService } from '../../services/auth';
+import { Produto, ProdutoService } from '../../services/produto.service';
+import { CarrinhoService } from '../../services/carrinho.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-shop',
@@ -20,9 +20,9 @@ import { AuthService } from '../../services/auth';
 })
 export class ShopPage implements OnInit {
 
-  products: Produto[] = [];
-  cartItemCount = 0;
-  userName = '';
+  produtos: Produto[] = [];
+  carrinhoQtd = 0;
+  username = '';
 
   constructor(
     private productService: ProdutoService,
@@ -32,38 +32,38 @@ export class ShopPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadProducts();
-    this.loadUserName();
-    this.updateCartCount();
+    this.mostrarProdutos();
+    this.pegarNomeUsuario();
+    this.atualizarCarrinho();
   }
 
   ionViewWillEnter() {
-    this.updateCartCount();
+    this.atualizarCarrinho();
   }
 
-  loadProducts() {
-    this.products = this.productService.getProdutos();
+  mostrarProdutos() {
+    this.produtos = this.productService.getProdutos();
   }
 
-  loadUserName() {
-    this.userName = this.authService.getUser()?.name ?? 'Usuário';
+  pegarNomeUsuario() {
+    this.username = this.authService.getUser()?.name ?? 'Usuário';
   }
 
-  updateCartCount() {
-    this.cartItemCount = this.cartService.getTotalItems();
+  atualizarCarrinho() {
+    this.carrinhoQtd = this.cartService.getTotalItems();
   }
 
-  addToCart(product: Produto) {
-    if (product.estoque > 0) {
-      this.cartService.adicionarCarrinho(product);
-      product.estoque--;
-      this.productService.atualizarProduto(product);
-      this.updateCartCount();
+  adicionarProduto(p: Produto) {
+    if (p.estoque > 0) {
+      this.cartService.adicionarCarrinho(p);
+      p.estoque--;
+      this.productService.atualizarProduto(p);
+      this.atualizarCarrinho();
     }
   }
 
-  goToCart() {
-    this.router.navigate(['/carrinho']); // Ajuste conforme o path real
+  irParaCarrinho() {
+    this.router.navigate(['/carrinho']); 
   }
 
   logout() {

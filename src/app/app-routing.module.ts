@@ -24,9 +24,9 @@ const routes: Routes = [
   },
 
   {
-    path: 'cart',
+    path: 'carrinho',
     loadComponent: () =>
-      import('./pages/carrinho/carrinho.page').then(m => m.CartPage),
+      import('./pages/carrinho/carrinho.page').then(m => m.Carrinho),
     canActivate: [authGuard]
   },
 

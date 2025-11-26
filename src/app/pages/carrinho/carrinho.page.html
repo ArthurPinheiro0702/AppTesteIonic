@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="cartItems.length > 0">
+  <div *ngIf="itensCarrinho.length > 0">
     <ion-list>
-      <ion-item-sliding *ngFor="let item of cartItems">
+      <ion-item-sliding *ngFor="let item of itensCarrinho">
         <ion-item>
           <ion-thumbnail slot="start">
             <img [src]="item.produto.imagem" [alt]="item.produto.nome">
@@ -24,14 +24,14 @@
             <ion-button 
               fill="clear" 
               size="small"
-              (click)="decreaseQuantity(item.produto.id)">
+              (click)="diminuirQuantidade(item.produto.id)">
               <ion-icon name="remove" slot="icon-only"></ion-icon>
             </ion-button>
-            <span class="quantity">{{ item.quantidade }}</span>
+            <span class="quantidade">{{ item.quantidade }}</span>
             <ion-button 
               fill="clear" 
               size="small"
-              (click)="increaseQuantity(item.produto.id, item.produto.estoque)">
+              (click)="aumentarQuantidade(item.produto.id, item.produto.estoque)">
               <ion-icon name="add" slot="icon-only"></ion-icon>
             </ion-button>
           </div>
@@ -40,7 +40,7 @@
           </ion-note>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option color="danger" (click)="removeItem(item.produto.id)">
+          <ion-item-option color="danger" (click)="removerItem(item.produto.id)">
             <ion-icon name="trash" slot="icon-only"></ion-icon>
           </ion-item-option>
         </ion-item-options>
@@ -51,7 +51,7 @@
       <ion-card-content>
         <div class="total-row">
           <span class="total-label">Total:</span>
-          <span class="total-value">{{ total | currency:'BRL' }}</span>
+          <span class="total-valor">{{ total | currency:'BRL' }}</span>
         </div>
         <ion-button expand="block" color="success" (click)="checkout()">
           <ion-icon name="checkmark-circle" slot="start"></ion-icon>
@@ -61,7 +61,7 @@
     </ion-card>
   </div>
 
-  <div *ngIf="cartItems.length === 0" class="empty-cart ion-padding">
+  <div *ngIf="itensCarrinho.length === 0" class="carrinho-vazio ion-padding">
     <ion-icon name="cart-outline" color="medium"></ion-icon>
     <h2>Seu carrinho está vazio</h2>
     <p>Adicione produtos para começar suas compras</p>

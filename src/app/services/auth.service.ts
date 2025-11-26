@@ -13,8 +13,8 @@ export interface User {
 export class AuthService {
 
   private usuarios = [
-    { id: '1', nome: 'Admin', email: 'admin@loja.com', senha: 'admin123', cargo: 'admin' },
-    { id: '2', nome: 'Cliente', email: 'joao@email.com', senha: 'user123', cargo: 'user' }
+    { id: '1', nome: 'Admin', email: 'admin@teste.com', senha: '123', cargo: 'admin' },
+    { id: '2', nome: 'Cliente', email: 'cliente@teste.com', senha: '123', cargo: 'user' }
   ];
 
   private currentUser: User | null = null;

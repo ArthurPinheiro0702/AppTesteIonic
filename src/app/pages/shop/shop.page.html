@@ -2,9 +2,9 @@
   <ion-toolbar color="primary">
     <ion-title>Loja Online</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="goToCart()">
+      <ion-button (click)="irParaCarrinho()">
         <ion-icon name="cart" slot="icon-only"></ion-icon>
-        <ion-badge color="danger" *ngIf="cartItemCount > 0">{{ cartItemCount }}</ion-badge>
+        <ion-badge color="danger" *ngIf="carrinhoQtd > 0">{{ carrinhoQtd }}</ion-badge>
       </ion-button>
       <ion-button (click)="logout()">
         <ion-icon name="log-out" slot="icon-only"></ion-icon>
@@ -15,38 +15,38 @@
 
 <ion-content>
   <div class="welcome-banner ion-padding">
-    <h2>Bem-vindo, {{ userName }}!</h2>
+    <h2>Bem-vindo!</h2>
     <p>Confira nossos produtos</p>
   </div>
 
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let product of products">
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let produto of produtos">
 
         <ion-card>
-          <img [src]="product.imagem" [alt]="product.nome">
+          <img [src]="produto.imagem" [alt]="produto.nome">
 
           <ion-card-header>
-            <ion-card-title>{{ product.nome }}</ion-card-title>
-            <ion-card-subtitle>{{ product.preco | currency:'BRL' }}</ion-card-subtitle>
+            <ion-card-title>{{ produto.nome }}</ion-card-title>
+            <ion-card-subtitle>{{ produto.preco | currency:'BRL' }}</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content>
 
-            <p>{{ product.descricao }}</p>
+            <p>{{ produto.descricao }}</p>
 
             <p class="estoque-info">
               <ion-icon name="cube" color="medium"></ion-icon>
-              {{ product.estoque }} em estoque
+              {{ produto.estoque }} em estoque
             </p>
 
             <ion-button 
               expand="block"
-              (click)="addToCart(product)"
-              [disabled]="product.estoque === 0">
+              (click)="adicionarProduto(produto)"
+              [disabled]="produto.estoque === 0">
               
               <ion-icon name="cart" slot="start"></ion-icon>
-              {{ product.estoque === 0 ? 'Sem estoque' : 'Adicionar ao carrinho' }}
+              {{ produto.estoque === 0 ? 'Sem estoque' : 'Adicionar ao carrinho' }}
             </ion-button>
 
           </ion-card-content>
@@ -56,7 +56,7 @@
     </ion-row>
   </ion-grid>
 
-  <div *ngIf="products.length === 0" class="empty-state ion-padding">
+  <div *ngIf="produtos.length === 0" class="empty-state ion-padding">
     <ion-icon name="cube-outline" color="medium"></ion-icon>
     <p>Nenhum produto disponível no momento.</p>
   </div>

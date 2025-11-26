@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ToastController } from '@ionic/angular';
-import { Produto, ProdutoService } from 'src/app/services/product';
+import { Produto, ProdutoService } from 'src/app/services/produto.service';
 
 @Component({
   selector: 'app-product-form',
@@ -32,7 +32,7 @@ export class ProductFormPage {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProdutoService,
+    private produtoService: ProdutoService,
     private toastController: ToastController
   ) {}
 
@@ -41,7 +41,7 @@ export class ProductFormPage {
 
     if (productId) {
       this.isEditMode = true;
-      const existingProduct = this.productService.getProdutoById(productId);
+      const existingProduct = this.produtoService.getProdutoById(productId);
 
       if (existingProduct) {
         this.product = { ...existingProduct };
@@ -54,10 +54,10 @@ export class ProductFormPage {
 
   saveProduct() {
     if (this.isEditMode) {
-      this.productService.atualizarProduto(this.product);
+      this.produtoService.atualizarProduto(this.product);
       this.showToast('Produto atualizado com sucesso!', 'success');
     } else {
-      this.productService.adicionarProduto(this.product);
+      this.produtoService.adicionarProduto(this.product);
       this.showToast('Produto cadastrado com sucesso!', 'success');
     }
 

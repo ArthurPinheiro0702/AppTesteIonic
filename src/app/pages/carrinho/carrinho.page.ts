@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CarrinhoService, ItemCarrinho } from '../../services/carrinho';
+import { CarrinhoService, ItemCarrinho } from '../../services/carrinho.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,56 +16,56 @@ import { Router } from '@angular/router';
     FormsModule
   ]
 })
-export class CartPage implements OnInit {
+export class Carrinho implements OnInit {
 
-  cartItems: ItemCarrinho[] = [];
+  itensCarrinho: ItemCarrinho[] = [];
   total: number = 0;
 
   constructor(
-    private cartService: CarrinhoService,
+    private carrinhoService: CarrinhoService,
     private alertController: AlertController,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.loadCart();
+    this.mostrarCarrinho();
   }
 
   ionViewWillEnter() {
-    this.loadCart();
+    this.mostrarCarrinho();
   }
 
-  loadCart() {
-    this.cartItems = this.cartService.getCarrinho();
-    this.total = this.cartService.getTotal();
+  mostrarCarrinho() {
+    this.itensCarrinho = this.carrinhoService.getCarrinho();
+    this.total = this.carrinhoService.getTotal();
   }
 
-  increaseQuantity(id: number, stock: number) {
-    this.cartService.incrementarQtd(id, stock);
-    this.loadCart();
+  aumentarQuantidade(id: number, stock: number) {
+    this.carrinhoService.incrementarQtd(id, stock);
+    this.mostrarCarrinho();
   }
 
-  decreaseQuantity(id: number) {
-    this.cartService.decrementarQtd(id);
-    this.loadCart();
+  diminuirQuantidade(id: number) {
+    this.carrinhoService.decrementarQtd(id);
+    this.mostrarCarrinho();
   }
 
-  removeItem(id: number) {
-    this.cartService.removerItem(id);
-    this.loadCart();
+  removerItem(id: number) {
+    this.carrinhoService.removerItem(id);
+    this.mostrarCarrinho();
   }
 
   async checkout() {
     const alert = await this.alertController.create({
       header: 'Compra Finalizada',
-      message: `Total da compra: <strong>${this.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</strong>`,
+      message: `Total da compra: ${this.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`,
       buttons: ['OK']
     });
 
     await alert.present();
 
-    this.cartService.limparCarrinho();
-    this.loadCart();
+    this.carrinhoService.limparCarrinho();
+    this.mostrarCarrinho();
 
     this.router.navigate(['/shop']);
   }

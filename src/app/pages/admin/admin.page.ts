@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { ProdutoService } from 'src/app/services/product'; 
+import { ProdutoService } from '../../services/produto.service';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -20,50 +20,50 @@ import { AlertController } from '@ionic/angular';
 })
 export class AdminPage implements OnInit {
 
-  products: any[] = [];
+  produtos: any[] = [];
 
   constructor(
     private router: Router,
-    private productService: ProdutoService,
+    private produtoService: ProdutoService,
     private alertController: AlertController
   ) {}
 
   ngOnInit() {
-    this.loadProducts();
+    this.mostrarProdutos();
   }
 
   ionViewWillEnter() {
-    this.loadProducts();
+    this.mostrarProdutos();
   }
 
-  loadProducts() {
-    this.products = this.productService.getProdutos();
+  mostrarProdutos() {
+    this.produtos = this.produtoService.getProdutos();
   }
 
   logout() {
     this.router.navigate(['/login']);
   }
 
-  addProduct() {
+  addProduto() {
     this.router.navigate(['admin/product']);
   }
 
-  editProduct(id: number) {
+  editarProduto(id: number) {
   this.router.navigate(['/admin/product', id]);
   }
 
 
-  async deleteProduct(id: number, name: string) {
+  async excluirProduto(id: number, name: string) {
     const alert = await this.alertController.create({
       header: 'Excluir Produto',
-      message: `Tem certeza que deseja excluir <strong>${name}</strong>?`,
+      message: `Tem certeza que deseja excluir ${name}?`,
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
         {
           text: 'Excluir',
           handler: () => {
-            this.productService.deletarProduto(id);
-            this.loadProducts();
+            this.produtoService.deletarProduto(id);
+            this.mostrarProdutos();
           }
         }
       ]

@@ -15,29 +15,24 @@ ion-thumbnail {
   --border-radius: 8px;
 }
 
-.product-info {
+.produto-info {
   display: flex;
   gap: 1rem;
   margin-top: 0.5rem;
   align-items: center;
 
-  .price {
+  .preco {
     font-weight: bold;
     color: var(--ion-color-primary);
     font-size: 1.1rem;
   }
 
-  .stock {
+  .estoque {
     display: flex;
     align-items: center;
     gap: 0.3rem;
     color: var(--ion-color-success);
     font-size: 0.9rem;
-
-    &.low-stock {
-      color: var(--ion-color-warning);
-      font-weight: bold;
-    }
 
     ion-icon {
       font-size: 1rem;
@@ -45,7 +40,7 @@ ion-thumbnail {
   }
 }
 
-.empty-state {
+.vazio {
   display: flex;
   flex-direction: column;
   align-items: center;
