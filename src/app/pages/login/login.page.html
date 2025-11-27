@@ -1,48 +1,55 @@
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Login - Loja Online</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <ion-content class="ion-padding">
-    <div class="login-container">
-      <div class="logo-container">
-        <ion-icon name="storefront" color="primary"></ion-icon>
-        <h1>Loja Online</h1>
+  <div class="split-container">
+
+    <div class="left-side">
+      <div class="login-container">
+        <div class="logo-container">
+          <ion-icon name="storefront" color="primary"></ion-icon>
+        </div>
+
+        <ion-card>
+          <ion-card-content>
+            <form #loginForm="ngForm" (ngSubmit)="login()">
+
+              <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input
+                  type="email"
+                  [(ngModel)]="email"
+                  name="email"
+                  required>
+                </ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Senha</ion-label>
+                <ion-input
+                  type="password"
+                  [(ngModel)]="password"
+                  name="password"
+                  required>
+                </ion-input>
+              </ion-item>
+
+              <ion-button
+                expand="block"
+                type="submit"
+                [disabled]="!loginForm.valid"
+                class="ion-margin-top">
+                Entrar
+              </ion-button>
+
+            </form>
+          </ion-card-content>
+        </ion-card>
       </div>
-
-      <ion-card>
-        <ion-card-content>
-          <form #loginForm="ngForm" (ngSubmit)="login()">
-            <ion-item>
-              <ion-label position="floating">Email</ion-label>
-              <ion-input 
-                type="email" 
-                [(ngModel)]="email" 
-                name="email" 
-                required>
-              </ion-input>
-            </ion-item>
-
-            <ion-item>
-              <ion-label position="floating">Senha</ion-label>
-              <ion-input 
-                type="password" 
-                [(ngModel)]="password" 
-                name="password" 
-                required>
-              </ion-input>
-            </ion-item>
-
-            <ion-button 
-              expand="block" 
-              type="submit" 
-              [disabled]="!loginForm.valid"
-              class="ion-margin-top">
-              Entrar
-            </ion-button>
-          </form>
-        </ion-card-content>
-      </ion-card>
     </div>
-  </ion-content>
+
+    <div class="right-side">
+      <img src="https://w0.peakpx.com/wallpaper/982/652/HD-wallpaper-video-game-the-witcher-geralt-of-rivia-the-witcher-3-wild-hunt-the-witcher-3-wild-hunt-blood-and-wine.jpg" alt="imagem login">
+    </div>
+
+  </div>
+
+</ion-content>
