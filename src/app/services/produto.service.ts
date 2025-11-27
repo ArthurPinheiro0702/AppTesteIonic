@@ -6,7 +6,6 @@ export interface Produto {
   preco: number;
   imagem?: string;
   descricao?: string;
-  estoque: number;
 }
 
 @Injectable({
@@ -20,16 +19,14 @@ export class ProdutoService {
       nome: 'ddcybcycbyeruvbyrv',
       preco: 49.90,
       imagem: 'https://via.placeholder.com/150',
-      descricao: 'Descrição teste.',
-      estoque: 10
+      descricao: 'Descrição teste.'
     },
     {
       id: 2,
       nome: 'Camiseta',
       preco: 79.90,
       imagem: 'https://via.placeholder.com/150',
-      descricao: 'Camisetaaaaaaaaa.',
-      estoque: 5
+      descricao: 'Camisetaaaaaaaaa.'
     }
   ];
 
@@ -59,8 +56,7 @@ export class ProdutoService {
       nome: p.nome ?? 'Novo Produto',
       preco: p.preco ?? 0,
       imagem: p.imagem ?? 'https://via.placeholder.com/150',
-      descricao: p.descricao ?? '',
-      estoque: p.estoque ?? 0
+      descricao: p.descricao ?? ''
     };
 
     this.produtos.push(novoProduto);
@@ -72,8 +68,7 @@ export class ProdutoService {
     if (index !== -1) {
       this.produtos[index] = {
         ...this.produtos[index],
-        ...prodAtualizado,
-        estoque: prodAtualizado.estoque ?? this.produtos[index].estoque ?? 0
+        ...prodAtualizado
       };
       localStorage.setItem('produtos', JSON.stringify(this.produtos));
     }

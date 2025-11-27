@@ -53,14 +53,6 @@ export class LojaPage implements OnInit {
     this.carrinhoQtd = this.cartService.getTotalItems();
   }
 
-  adicionarProduto(p: Produto) {
-    if (p.estoque > 0) {
-      this.cartService.adicionarCarrinho(p);
-      p.estoque--;
-      this.productService.atualizarProduto(p);
-      this.atualizarCarrinho();
-    }
-  }
 
   irParaCarrinho() {
     this.router.navigate(['/carrinho']); 

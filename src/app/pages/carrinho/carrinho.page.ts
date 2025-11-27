@@ -40,8 +40,8 @@ export class Carrinho implements OnInit {
     this.total = this.carrinhoService.getTotal();
   }
 
-  aumentarQuantidade(id: number, stock: number) {
-    this.carrinhoService.incrementarQtd(id, stock);
+  aumentarQuantidade(id: number) {
+    this.carrinhoService.incrementarQtd(id);
     this.mostrarCarrinho();
   }
 

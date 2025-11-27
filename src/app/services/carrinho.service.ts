@@ -27,11 +27,8 @@ export class CarrinhoService {
     }
   }
 
-  incrementarQtd(idProd: number, estoque: number) {
+  incrementarQtd(idProd: number) {
     const item = this.carrinho.find(i => i.produto.id === idProd);
-    if (item && item.quantidade < estoque) {
-      item.quantidade++;
-    }
   }
 
   decrementarQtd(idProd: number) {

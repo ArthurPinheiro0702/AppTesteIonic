@@ -30,26 +30,6 @@
             <ion-card-title>{{ produto.nome }}</ion-card-title>
             <ion-card-subtitle>{{ produto.preco | currency:'BRL' }}</ion-card-subtitle>
           </ion-card-header>
-
-          <ion-card-content>
-
-            <p>{{ produto.descricao }}</p>
-
-            <p class="estoque-info">
-              <ion-icon name="cube" color="medium"></ion-icon>
-              {{ produto.estoque }} em estoque
-            </p>
-
-            <ion-button 
-              expand="block"
-              (click)="adicionarProduto(produto)"
-              [disabled]="produto.estoque === 0">
-              
-              <ion-icon name="cart" slot="start"></ion-icon>
-              {{ produto.estoque === 0 ? 'Sem estoque' : 'Adicionar ao carrinho' }}
-            </ion-button>
-
-          </ion-card-content>
         </ion-card>
 
       </ion-col>

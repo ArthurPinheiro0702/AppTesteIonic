@@ -23,7 +23,6 @@ export class ProductFormPage {
     nome: '',
     descricao: '',
     preco: 0,
-    estoque: 0,
     imagem: ''
   };
 
