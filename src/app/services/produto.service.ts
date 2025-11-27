@@ -12,7 +12,6 @@ export interface Produto {
 @Injectable({
   providedIn: 'root',
 })
-
 export class ProdutoService {
 
   private produtos: Produto[] = [
@@ -34,8 +33,15 @@ export class ProdutoService {
     }
   ];
 
+  constructor() {
+    const data = localStorage.getItem('produtos');
+    if (data) {
+      this.produtos = JSON.parse(data);
+    }
+  }
+
   getProdutos(): Produto[] {
-    return this.produtos; 
+    return this.produtos;
   }
 
   getProdutoById(id: number): Produto | undefined {
@@ -58,6 +64,7 @@ export class ProdutoService {
     };
 
     this.produtos.push(novoProduto);
+    localStorage.setItem('produtos', JSON.stringify(this.produtos));
   }
 
   atualizarProduto(prodAtualizado: Produto) {
@@ -68,10 +75,12 @@ export class ProdutoService {
         ...prodAtualizado,
         estoque: prodAtualizado.estoque ?? this.produtos[index].estoque ?? 0
       };
+      localStorage.setItem('produtos', JSON.stringify(this.produtos));
     }
   }
 
   deletarProduto(id: number) {
     this.produtos = this.produtos.filter(p => p.id !== id);
+    localStorage.setItem('produtos', JSON.stringify(this.produtos));
   }
 }
