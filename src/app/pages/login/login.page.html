@@ -1,53 +1,79 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-no-padding">
+  <!-- Vídeo de fundo -->
+  
+  <div class="background-video-container">
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="../../../assets/@f1l193_PinDown.io_1764336660.mp4" type="video/mp4">
+    </video>
+  </div>
+  
+  <!--<div class="background-image-container">
+    <ion-img src="../../../assets/Ninja 4k wallpaper for pc and mobile.jpg"
+         class="background-image">
+    </ion-img>
+  </div>
+  -->
 
-  <div class="split-container">
+  <div class="login-wrapper">
 
-    <div class="left-side">
-      <div class="login-container">
-        <div class="logo-container">
-          <ion-icon name="storefront" color="primary"></ion-icon>
+    <div class="login-form-section">
+      <div class="form-container">
+
+        <div class="brand-section">
+          <h1>Bem vindo novamente!</h1>
+          <p class="subtitle">faça o login com usuário e senha</p>
         </div>
 
-        <ion-card>
-          <ion-card-content>
-            <form #loginForm="ngForm" (ngSubmit)="login()">
+        <form #loginForm="ngForm" (ngSubmit)="login()" class="login-form">
 
-              <ion-item>
-                <ion-label position="floating">Email</ion-label>
-                <ion-input
-                  type="email"
-                  [(ngModel)]="email"
-                  name="email"
-                  required>
-                </ion-input>
-              </ion-item>
+          <div class="input-group">
+            <label class="input-label" for="email">Email</label>
+            <input
+              name="email"
+              type="email"
+              placeholder="Digite seu email"
+              [(ngModel)]="email"
+              class="custom-input"
+              required
+              >
+          </div>
 
-              <ion-item>
-                <ion-label position="floating">Senha</ion-label>
-                <ion-input
-                  type="password"
-                  [(ngModel)]="password"
-                  name="password"
-                  required>
-                </ion-input>
-              </ion-item>
+          <div class="input-group">
+            <label class="input-label" for="password">Senha</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Digite sua senha"
+              [(ngModel)]="password"
+              name="password"
+              class="custom-input"
+              required
+              autocomplete="current-password" />
+          </div>
 
-              <ion-button
-                expand="block"
-                type="submit"
-                [disabled]="!loginForm.valid"
-                class="ion-margin-top">
-                Entrar
-              </ion-button>
+          <ion-button
+            expand="block"
+            type="submit"
+            [disabled]="!loginForm.valid"
+            class="login-button">
+            Entrar
+          </ion-button>
 
-            </form>
-          </ion-card-content>
-        </ion-card>
+        </form>
+
+        <div class="test-credentials">
+          <p class="credentials-title">Credenciais de teste:</p>
+          <div class="credential-item">
+            <ion-icon name="shield-checkmark"></ion-icon>
+            <span>Admin: admin@teste.com / 123</span>
+          </div>
+          <div class="credential-item">
+            <ion-icon name="person"></ion-icon>
+            <span>Cliente: cliente@teste.com / 123</span>
+          </div>
+        </div>
+
       </div>
-    </div>
-
-    <div class="right-side">
-      <img src="https://w0.peakpx.com/wallpaper/982/652/HD-wallpaper-video-game-the-witcher-geralt-of-rivia-the-witcher-3-wild-hunt-the-witcher-3-wild-hunt-blood-and-wine.jpg" alt="imagem login">
     </div>
 
   </div>
